@@ -808,8 +808,21 @@ footer {
   }
 }
 
+@media (max-width: 400px) {
+  .sticky-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;
+    padding: 2px !important;
+    box-sizing: border-box;
+    font-size: xx-small;
+  }
+}
+
+
 /* Stack vertically on very small screens */
-@media (max-width: 500px) {
+@media (max-width: 300px) {
   header#about .contact {
     flex-direction: column;
     gap: 8px;
@@ -856,11 +869,14 @@ footer {
   }
 
   .sticky-nav {
-    text-align: justify;
-    padding: 4px;
+    display: flex;            /* Make it a flex container */
+    flex-direction: column;   /* Stack items vertically */
+    align-items: center;      /* Center items horizontally */
+    gap: 1px;                 /* Reduce space between nav items */
+    padding: 1px;
     box-sizing: border-box;
-    font-size: x-small;
-  }
+    font-size: xxx-small;
+}
 
   /* Project cards grid and padding */
   .projects-grid {

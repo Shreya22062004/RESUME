@@ -950,6 +950,19 @@ footer {
   }
 }
 
+@media (max-width: 400px) {
+  .sticky-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;
+    padding: 2px !important;
+    box-sizing: border-box;
+    font-size: xx-small;
+  }
+}
+
+
 /* Hide PDF download button in dark mode */
 .pdf-only-light {
   display: none !important;
