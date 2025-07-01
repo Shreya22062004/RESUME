@@ -43,22 +43,22 @@ filterBtns.forEach(btn => {
 });
 
 // Project Lightbox Modal (with download/web links)
-window.openLightbox = function(title, desc, linksHtml) {
+window.openLightbox = function (title, desc, linksHtml) {
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
   document.getElementById('lightbox-links').innerHTML = linksHtml || '';
   document.getElementById('lightbox').style.display = 'flex';
 };
-window.closeLightbox = function() {
+window.closeLightbox = function () {
   document.getElementById('lightbox').style.display = 'none';
 };
-window.onclick = function(event) {
+window.onclick = function (event) {
   const lightbox = document.getElementById('lightbox');
   if (event.target === lightbox) closeLightbox();
 };
 // Project card click for lightbox
 document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('click', function(e) {
+  card.addEventListener('click', function (e) {
     // Only open lightbox if not clicking a link inside the card
     if (e.target.tagName === 'A') return;
     const title = card.getAttribute('data-title');
@@ -75,7 +75,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     document.getElementById('lightbox-links').innerHTML = linksHtml;
     document.getElementById('lightbox').style.display = 'flex';
   });
-  card.addEventListener('keydown', function(e) {
+  card.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       card.click();
@@ -128,3 +128,58 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => { feedback.textContent = ""; }, 4000);
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var btn = document.getElementById('download-pdf');
+  if (btn) {
+    btn.addEventListener('click', async function () {
+      // Save current theme state
+      const lightSheet = document.getElementById('light-theme');
+      const darkSheet = document.getElementById('dark-theme');
+      const wasDark = !darkSheet.disabled;
+
+      // Switch to light mode for PDF
+      lightSheet.disabled = false;
+      darkSheet.disabled = true;
+
+      // Wait for CSS to apply
+      await new Promise(requestAnimationFrame);
+
+      // Add PDF export class
+      document.body.classList.add('pdf-export');
+      var element = document.querySelector('.container');
+      var opt = {
+        margin: 0.2,
+        filename: 'S-J-Shreya-Resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+      await html2pdf().set(opt).from(element).save();
+
+      // Remove PDF export class and restore theme
+      document.body.classList.remove('pdf-export');
+      if (wasDark) {
+        darkSheet.disabled = false;
+        lightSheet.disabled = true;
+      }
+    });
+  }
+});
+
+
+// Hide PDF button in dark mode (extra safety for dynamic theme switching)
+function togglePdfButton() {
+  const darkSheet = document.getElementById('dark-theme');
+  const pdfBtn = document.getElementById('download-pdf');
+  if (pdfBtn) {
+    if (!darkSheet.disabled) {
+      pdfBtn.style.display = 'none';
+    } else {
+      pdfBtn.style.display = '';
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', togglePdfButton);
+document.getElementById('theme-toggle').addEventListener('click', togglePdfButton);

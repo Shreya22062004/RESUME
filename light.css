@@ -726,7 +726,7 @@ footer {
     text-align: justify;
     padding: 4px;
     box-sizing: border-box;
-    font-size: small;
+    font-size: x-small;
   }
 
   /* Project cards grid and padding */
@@ -825,3 +825,79 @@ footer {
     margin-bottom: 2px;
   }
 }
+
+@media print {
+  nav, .sticky-nav, footer, .btn-download, #download-pdf { display: none !important; }
+  body, html {
+    background: #fff !important;
+    color: #000 !important;
+    width: 210mm; max-width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    padding: 0;
+  }
+  .container, main section {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+}
+
+@media print {
+  /* Prevent project cards from splitting across pages */
+  .project-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+  }
+  /* Hide both download buttons and the project filter bar in the PDF */
+  #download-pdf,
+  .btn-download,
+  .filter-menu {
+    display: none !important;
+  }
+}
+
+body.pdf-export #download-pdf,
+body.pdf-export .btn-download,
+body.pdf-export .filter-menu {
+  display: none !important;
+}
+body.pdf-export .projects-grid {
+  display: block !important;
+}
+body.pdf-export .project-card {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  -webkit-column-break-inside: avoid !important;
+  -moz-column-break-inside: avoid !important;
+  display: block !important;
+  margin-bottom: 24px !important;
+}
+
+/* --- PDF Export: Keep headings with content on the same page --- */
+body.pdf-export h1,
+body.pdf-export h2,
+body.pdf-export h3,
+body.pdf-export h4,
+body.pdf-export h5,
+body.pdf-export h6 {
+  page-break-after: avoid !important;
+  break-after: avoid-page !important;
+}
+
+body.pdf-export section,
+body.pdf-export .timeline-group,
+body.pdf-export .projects-grid,
+body.pdf-export .project-card,
+body.pdf-export ul,
+body.pdf-export ol,
+body.pdf-export .highlight-card {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  -webkit-column-break-inside: avoid !important;
+  -moz-column-break-inside: avoid !important;
+}
+
