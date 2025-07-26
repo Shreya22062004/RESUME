@@ -1,4 +1,7 @@
 My Personal Resume Website
+
+Website : https://sjshreya-resume.netlify.app/
+
 This repository hosts my personal resume website, a dynamic and interactive platform designed to showcase my professional journey. Unlike a static document, this website offers a comprehensive overview of my skills, experience, and projects in an engaging and accessible format. It's built with modern web technologies to ensure a seamless and responsive experience across all devices, from desktops to mobile phones.
 
 Key Features
